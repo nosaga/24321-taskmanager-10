@@ -31,7 +31,7 @@ const getMenuWrapper = () => {
       ${getMenu(`new-task`, `+ADD NEW TASK`)}
       ${getMenu(`task`, `TASKS`)}
       ${getMenu(`statistics`, `STATISTICS`)}
-      </section>
+    </section>
   `;
 };
 
@@ -42,7 +42,8 @@ const getFilters = () => {
       return `
         <input type="radio" id="filter__${filter.name.toLowerCase()}" class="filter__input visually-hidden" name="filter" checked="">
        <label for="filter__${filter.name.toLowerCase()}}" class="filter__label">
-       ${filter.name} <span class="filter__all-count">${filter.num}</span></label>`}).join(``)}
+       ${filter.name} <span class="filter__all-count">${filter.num}</span></label>`
+      }).join(``)};
     <section>
   `;
 };
