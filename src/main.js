@@ -8,22 +8,21 @@ const mainControl = document.querySelector(`.main__control`);
 const getRandom = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
 
 /* mock data */
-// const cards = [`blue`, `yellow`, `green`, `black`, `pink`, `red`, `black`];
 const filters = [
   {name: `All`, num: getRandom(0, 30)},
   {name: `Overdue`, num: getRandom(0, 30)},
-  {name: `Today`, num: getRandom(0,30)},
-  {name: `Favourites`, num: getRandom(0,30)},
-  {name: `Repeating`, num: getRandom(0,30)},
-  {name: `Tags`, num: getRandom(0,30)},
-  {name: `Archive`, num: getRandom(0,30)}
+  {name: `Today`, num: getRandom(0, 30)},
+  {name: `Favourites`, num: getRandom(0, 30)},
+  {name: `Repeating`, num: getRandom(0, 30)},
+  {name: `Tags`, num: getRandom(0, 30)},
+  {name: `Archive`, num: getRandom(0, 30)}
 ];
 
 const getMenu = (caption, item) => {
   return `
     <input type="radio" name="control" id="control__new-task" class="control__input visually-hidden">
     <label for="control__${caption.toLowerCase()}" class="control__label control__label--${caption.toLowerCase()}">${item}</label>
-  `
+  `;
 };
 
 const getMenuWrapper = () => {
@@ -38,13 +37,13 @@ const getMenuWrapper = () => {
 
 const getFilters = () => {
   return `
-      <section class="main__filter filter container">
-        ${filters.map((filter) => {
-        return `
-          <input type="radio" id="filter__${filter.name.toLowerCase()}" class="filter__input visually-hidden" name="filter" checked="">
-         <label for="filter__${filter.name.toLowerCase()}}" class="filter__label">
-         ${filter.name} <span class="filter__all-count">${filter.num}</span></label>`}).join(``)}
-      <section>
+    <section class="main__filter filter container">
+      ${filters.map((filter) => {
+      return `
+        <input type="radio" id="filter__${filter.name.toLowerCase()}" class="filter__input visually-hidden" name="filter" checked="">
+       <label for="filter__${filter.name.toLowerCase()}}" class="filter__label">
+       ${filter.name} <span class="filter__all-count">${filter.num}</span></label>`}).join(``)}
+    <section>
   `;
 };
 
@@ -542,7 +541,7 @@ const getCardEdit = () => {
                 </div>
               </div>
             </form>
-          </article>`
+          </article>`;
 };
 
 const getCardsAll = () => {
