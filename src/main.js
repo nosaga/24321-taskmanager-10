@@ -3,7 +3,7 @@ import {filters} from "./constants";
 import {getMenu} from "./components/menu";
 import {getFilters} from "./components/filters";
 import {getSort} from "./components/sorting";
-import {getCards} from "./components/card";
+import {getCard} from "./components/card";
 import {getCardEdit} from "./components/card-edit";
 import {getSearch} from "./components/search";
 import {getLoad} from "./components/load-more";
@@ -15,7 +15,7 @@ const mainControl = document.querySelector(`.main__control`);
 const getCardsAll = () => {
   return `
     <div class="board__tasks">
-      ${getCards()}
+      ${getCard()}
       ${getCardEdit()}
     </div>
   `;

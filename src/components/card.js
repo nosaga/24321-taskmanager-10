@@ -1,4 +1,4 @@
-export const getCards = () => {
+export const getCard = () => {
   return `
     <article class="card card--blue">
       <div class="card__form">
