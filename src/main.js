@@ -31,7 +31,7 @@ const getContent = () => {
   `;
 };
 
-mainControl.insertAdjacentHTML(`beforeend`, getMenuWrapper(getMenu()));
+mainControl.insertAdjacentHTML(`beforeend`, getMenuWrapper(getMenu));
 main.insertAdjacentHTML(`beforeend`, getSearch());
 main.insertAdjacentHTML(`beforeend`, getFilters(filters));
 main.insertAdjacentHTML(`beforeend`, getContent());
