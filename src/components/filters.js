@@ -6,8 +6,8 @@ const createFilterMarkup = (filter, isChecked) => {
         class="filter__input visually-hidden" name="filter" 
         ${isChecked ? `checked` : ``}
       >
-      <label for="filter__${name.toLowerCase()}} 
-        class="filter__label">${name}
+      <label for="filter__${name.toLowerCase()} 
+        class="filter__label">${name.toUpperCase()}
         <span class="filter__all-count">${count}
         </span>
       </label>
