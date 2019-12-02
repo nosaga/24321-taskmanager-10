@@ -1,38 +1,46 @@
-import {filters} from "./constants";
+import {generateFilters} from "./mock/filters";
 
-import {getFilters} from "./components/filters";
+import {createBoardTemplate} from "./components/board";
+import {createFilterTemplate} from "./components/filters";
 import {getSort} from "./components/sorting";
-import {getCard} from "./components/card";
+import {getCard} from "./components/task";
 import {getCardEdit} from "./components/card-edit";
 import {getSearch} from "./components/search";
 import {getLoad} from "./components/load-more";
-import {getMenu} from "./components/menu";
+import {createSiteMenuTemplate} from "./components/menu";
 import {getMenuWrapper} from "./components/menu-wrapper";
+import {generateTasks} from './mock/task.js';
+import {createTaskTemplate} from "./components/task";
 
 
-const main = document.querySelector(`.main`);
-const mainControl = document.querySelector(`.main__control`);
+const TASK_COUNT = 22;
 
-const getCardsAll = () => {
-  return `
-    <div class="board__tasks">
-      ${getCard()}
-      ${getCardEdit()}
-    </div>
-  `;
+const render = (container, template, place) => {
+  container.insertAdjacentHTML(place, template);
 };
 
-const getContent = () => {
-  return ` 
-    <section class="board container">
-      ${getSort()} 
-      ${getCardsAll()}
-      ${getLoad()}
-    </section>
-  `;
-};
+const siteMainElement = document.querySelector(`.main`);
+const siteHeaderElementl = siteMainElement.querySelector(`.main__control`);
 
-mainControl.insertAdjacentHTML(`beforeend`, getMenuWrapper(getMenu));
-main.insertAdjacentHTML(`beforeend`, getSearch());
-main.insertAdjacentHTML(`beforeend`, getFilters(filters));
-main.insertAdjacentHTML(`beforeend`, getContent());
+render(siteHeaderElementl, createSiteMenuTemplate(), `beforeend`);
+
+const filters = generateFilters();
+render(siteMainElement, createFilterTemplate(filters), `beforeend`);
+render(siteMainElement, createBoardTemplate(), `beforeend`);
+
+const taskListElement = siteMainElement.querySelector(`.board__tasks`);
+const tasks = generateTasks(TASK_COUNT);
+console.log(`tasks `, tasks);
+tasks.slice(1).forEach((task) => render(taskListElement, createTaskTemplate(task), `beforeend`));
+/*
+render(siteMainElement, createBoardTemplate(), `beforeend`);
+
+const taskListElement = siteMainElement.querySelector(`.board__tasks`);
+const tasks = generateTasks(TASK_COUNT);
+tasks.slice(1).forEach((task) => render(taskListElement, createTaskTemplate(task), `beforeend`));
+
+
+
+const filters = generateFilters();
+*/
+

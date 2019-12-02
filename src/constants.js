@@ -1,13 +1,17 @@
-import {getRandom} from "./utils";
-
-const filters = [
-  {name: `All`, num: getRandom(0, 30)},
-  {name: `Overdue`, num: getRandom(0, 30)},
-  {name: `Today`, num: getRandom(0, 30)},
-  {name: `Favourites`, num: getRandom(0, 30)},
-  {name: `Repeating`, num: getRandom(0, 30)},
-  {name: `Tags`, num: getRandom(0, 30)},
-  {name: `Archive`, num: getRandom(0, 30)}
+const Colors = [`black`, `yellow`, `blue`, `green`, `pink`];
+const days = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
+const MonthNames = [
+  `January`,
+  `February`,
+  `March`,
+  `April`,
+  `May`,
+  `June`,
+  `July`,
+  `August`,
+  `September`,
+  `October`,
+  `November`,
+  `December`,
 ];
-
-export {filters};
+export {Colors, days, MonthNames};
