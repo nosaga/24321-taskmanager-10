@@ -9,7 +9,9 @@ import {generateTasks} from './mock/task.js';
 import {generateFilters} from "./mock/filters";
 
 
-const TASK_COUNT = 22;
+const TASK_COUNT = 20;
+const SHOWING_TASKS_COUNT_ON_START = 8;
+const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -33,3 +35,18 @@ const boardElement = siteMainElement.querySelector(`.board`);
 render(boardElement, createLoadMoreButtonTemplate(), `beforeend`);
 render(boardElement, createSortTemplate(), `afterbegin`);
 
+const loadMoreButton = boardElement.querySelector(`.load-more`);
+
+let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
+
+loadMoreButton.addEventListener(`click`, () => {
+  const prevTasksCount = showingTasksCount;
+  showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
+
+  tasks.slice(prevTasksCount, showingTasksCount)
+    .forEach((task) => render(taskListElement, createTaskTemplate(task), `beforeend`));
+
+  if (showingTasksCount >= tasks.length) {
+    loadMoreButton.remove();
+  }
+});
