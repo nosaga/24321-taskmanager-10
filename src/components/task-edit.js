@@ -1,8 +1,8 @@
 import {colors, days, monthNames} from '../constants.js';
 import {formatTime} from '../utils.js';
 
-const createColorsMarkup = (colorsall, currentColor) => {
-  return colorsall
+const createColorsMarkup = (colorsAll, currentColor) => {
+  return colorsAll
     .map((color) => {
       return (
         `<input
@@ -80,7 +80,7 @@ export const createTaskEditTemplate = (task) => {
   const time = isDateShowing ? formatTime(dueDate) : ``;
 
   const isRepeatingTask = Object.values(repeatingDays).some(Boolean);
-  const repeatClass = isRepeatingTask ? `card--repeat` : ``;
+  const repeatingClass = isRepeatingTask ? `card--repeat` : ``;
   const deadlineClass = isExpired ? `card--deadline` : ``;
 
   const tagsMarkup = createHashtags(tags);
@@ -88,7 +88,7 @@ export const createTaskEditTemplate = (task) => {
   const repeatingDaysMarkup = createRepeatingDaysMarkup(days, repeatingDays);
 
   return (
-    `<article class="card card--edit card--${color} ${repeatClass} ${deadlineClass}">
+    `<article class="card card--edit card--${color} ${repeatingClass} ${deadlineClass}">
       <form class="card__form" method="get">
         <div class="card__inner">
           <div class="card__color-bar">
