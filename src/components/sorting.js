@@ -1,4 +1,4 @@
-export const getSort = () => {
+export const createSortTemplate = () => {
   return `
     <div class="board__filter-list">
       <a href="#" class="board__filter">SORT BY DEFAULT</a>
