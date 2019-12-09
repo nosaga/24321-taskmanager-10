@@ -38,8 +38,8 @@ render(boardElement, createLoadMoreButtonTemplate(), `beforeend`);
 
 render(boardElement, createSortTemplate(), `afterbegin`);
 
-const loadMoreButton = boardElement.querySelector(`.load-more`);
-loadMoreButton.addEventListener(`click`, () => {
+const loadMoreElement = boardElement.querySelector(`.load-more`);
+loadMoreElement.addEventListener(`click`, () => {
   const prevTasksCount = showingTasksCount;
   showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
 
@@ -47,6 +47,6 @@ loadMoreButton.addEventListener(`click`, () => {
     .forEach((task) => render(taskListElement, createTaskTemplate(task), `beforeend`));
 
   if (showingTasksCount >= tasks.length) {
-    loadMoreButton.remove();
+    loadMoreElement.remove();
   }
 });
