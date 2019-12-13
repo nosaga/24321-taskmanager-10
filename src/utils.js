@@ -12,4 +12,34 @@ const formatTime = (date) => {
   return `${hours}:${minutes} ${interval}`;
 };
 
-export {getRandom, formatTime};
+
+const renderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
+const render = (container, element, place) => {
+  switch (place) {
+    case renderPosition.AFTERBEGIN:
+      container.prepend(element);
+      break;
+    case renderPosition.BEFOREEND:
+      container.append(element);
+      break;
+  }
+};
+
+export {
+  getRandom,
+  formatTime,
+  renderPosition,
+  createElement,
+  render
+};
