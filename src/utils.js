@@ -13,7 +13,7 @@ const formatTime = (date) => {
 };
 
 
-const renderPosition = {
+const RenderPosition = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`
 };
@@ -27,10 +27,10 @@ const createElement = (template) => {
 
 const render = (container, element, place) => {
   switch (place) {
-    case renderPosition.AFTERBEGIN:
+    case RenderPosition.AFTERBEGIN:
       container.prepend(element);
       break;
-    case renderPosition.BEFOREEND:
+    case RenderPosition.BEFOREEND:
       container.append(element);
       break;
   }
@@ -39,7 +39,7 @@ const render = (container, element, place) => {
 export {
   getRandom,
   formatTime,
-  renderPosition,
+  RenderPosition,
   createElement,
   render
 };
