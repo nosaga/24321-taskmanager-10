@@ -1,5 +1,5 @@
 import {monthNames} from '../constants.js';
-import {createElement, formatTime} from '../utils.js';
+import {createElement, formatTime, getExpiredStatus} from '../utils.js';
 
 const createHashtagsMarkup = (hashtags) => {
   return hashtags
@@ -17,7 +17,7 @@ const createHashtagsMarkup = (hashtags) => {
 
 const createTaskTemplate = (task) => {
   const {description, tags, dueDate, color, repeatingDays} = task;
-  const isExpired = dueDate instanceof Date && dueDate < Date.now();
+  const isExpired = getExpiredStatus(dueDate);
   const isDateShowing = !!dueDate;
   const date = isDateShowing ? `${dueDate.getDate()} ${monthNames[dueDate.getMonth()]}` : ``;
   const time = isDateShowing ? formatTime(dueDate) : ``;

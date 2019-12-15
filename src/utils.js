@@ -12,6 +12,7 @@ const formatTime = (date) => {
   return `${hours}:${minutes} ${interval}`;
 };
 
+const getExpiredStatus = (date) => date instanceof Date && date < Date.now();
 
 const RenderPosition = {
   AFTERBEGIN: `afterbegin`,
@@ -39,6 +40,7 @@ const render = (container, element, place) => {
 export {
   getRandom,
   formatTime,
+  getExpiredStatus,
   RenderPosition,
   createElement,
   render
