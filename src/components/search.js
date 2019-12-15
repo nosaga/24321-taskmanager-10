@@ -1,4 +1,4 @@
-import {createElement} from "../utils";
+import {createElement} from '../utils';
 
 const createSiteSearch = () => {
   return `<section class="main__search search container">
