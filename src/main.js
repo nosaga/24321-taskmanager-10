@@ -1,51 +1,73 @@
-import {createBoardTemplate} from "./components/board";
-import {createFilterTemplate} from "./components/filters";
-import {createLoadMoreButtonTemplate} from "./components/load-more";
-import {createTaskEditTemplate} from "./components/task-edit";
-import {createTaskTemplate} from "./components/task";
-import {createSiteMenuTemplate} from "./components/menu";
-import {createSortTemplate} from "./components/sorting";
+import {RenderPosition, render} from "./utils";
+
 import {generateTasks} from './mock/task.js';
 import {generateFilters} from "./mock/filters";
 
+import FilterComponent from "./components/filters";
+import LoadMoreButtonComponent from "./components/load-more";
+import TaskEditComponent from "./components/task-edit";
+import TaskComponent from "./components/task";
+import SiteMenuComponent from "./components/menu";
+import SearchComponent from "./components/search"
+import BoardComponent from "./components/sorting";
 
 const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
+
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
+const renderTask = (task) => {
+  const taskComponent = new TaskComponent(task);
+  const taskEditComponent = new TaskEditComponent(task);
+
+  const editButtonElement = taskComponent.getElement().querySelector(`.card__btn--edit`);
+  editButtonElement.addEventListener(`click`, () => {
+    taskListElement.replaceChild(taskEditComponent.getElement(), taskComponent.getElement());
+  });
+
+  const editFormElement = taskEditComponent.getElement().querySelector(`form`);
+  editFormElement.addEventListener(`submit`, () => {
+    taskListElement.replaceChild(taskComponent.getElement(), taskEditComponent.getElement());
+  });
+
+  render(taskListElement, taskComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
-render(siteHeaderElement, createSiteMenuTemplate(), `beforeend`);
+
+render(siteHeaderElement, new SiteMenuComponent().getElement(), RenderPosition.BEFOREEND);
+
+const search = new SearchComponent();
+render(siteMainElement, search.getElement(), RenderPosition.BEFOREEND);
 
 const filters = generateFilters();
-render(siteMainElement, createFilterTemplate(filters), `beforeend`);
-render(siteMainElement, createBoardTemplate(), `beforeend`);
+render(siteMainElement, new FilterComponent(filters).getElement(), RenderPosition.BEFOREEND);
 
-const taskListElement = siteMainElement.querySelector(`.board__tasks`);
+const boardComponent = new BoardComponent();
+render(siteMainElement, boardComponent.getElement(), RenderPosition.BEFOREEND);
+
+const taskListElement = boardComponent.getElement().querySelector(`.board__tasks`);
 const tasks = generateTasks(TASK_COUNT);
 
-render(taskListElement, createTaskEditTemplate(tasks[0]), `beforeend`);
 let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
-tasks.slice(1, showingTasksCount).forEach((task) => render(taskListElement, createTaskTemplate(task), `beforeend`));
+tasks.slice(0, showingTasksCount)
+  .forEach((task) => {
+    renderTask(task);
+  });
 
-const boardElement = siteMainElement.querySelector(`.board`);
-render(boardElement, createLoadMoreButtonTemplate(), `beforeend`);
+const loadMoreButtonComponent = new LoadMoreButtonComponent();
+render(boardComponent.getElement(), loadMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 
-render(boardElement, createSortTemplate(), `afterbegin`);
-
-const loadMoreElement = boardElement.querySelector(`.load-more`);
-loadMoreElement.addEventListener(`click`, () => {
+loadMoreButtonComponent.getElement().addEventListener(`click`, () => {
   const prevTasksCount = showingTasksCount;
   showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
 
   tasks.slice(prevTasksCount, showingTasksCount)
-    .forEach((task) => render(taskListElement, createTaskTemplate(task), `beforeend`));
+    .forEach((task) => renderTask(task));
 
   if (showingTasksCount >= tasks.length) {
-    loadMoreElement.remove();
+    loadMoreButtonComponent.getElement().remove();
+    loadMoreButtonComponent.removeElement();
   }
 });
