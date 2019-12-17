@@ -1,18 +1,16 @@
-import {createElement} from "../utils";
+import {createElement} from '../utils';
 
 const createSortTemplate = () => {
-  return `<section class="board container">
-      <div class="board__filter-list">
+  return `<div class="board__filter-list">
         <a href="#" class="board__filter">SORT BY DEFAULT</a>
         <a href="#" class="board__filter">SORT BY DATE up</a>
         <a href="#" class="board__filter">SORT BY DATE down</a>
       </div>
       <div class="board__tasks"></div>
-    </section>
   `;
 };
 
-export default class BoardComponent {
+export default class SortComponent {
   constructor() {
     this._element = null;
   }
