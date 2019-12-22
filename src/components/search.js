@@ -1,6 +1,6 @@
-import {createElement} from '../utils';
+import AbstractComponent from './abstract-component.js';
 
-const createSiteSearch = () => {
+const createSiteSearchTemplate = () => {
   return `<section class="main__search search container">
       <input type="text" id="search__input" class="search__input" placeholder="START TYPING — SEARCH BY WORD, #HASHTAG OR DATE">
       <label class="visually-hidden" for="search__input">Search</label>
@@ -8,24 +8,10 @@ const createSiteSearch = () => {
   `;
 };
 
-export default class SearchComponent {
-  constructor() {
-    this._element = null;
-  }
 
+export default class SearchComponent extends AbstractComponent {
   getTemplate() {
-    return createSiteSearch();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+    return createSiteSearchTemplate();
   }
 }
+
