@@ -182,4 +182,3 @@ export default class TaskEdit extends AbstractComponent {
       .addEventListener(`submit`, handler);
   }
 }
-
