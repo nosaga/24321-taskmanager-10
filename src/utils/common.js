@@ -3,13 +3,15 @@ const castTimeFormat = (value) => {
   return value < 10 ? `0${value}` : String(value);
 };
 
+
+import moment from 'moment';
+
 const formatTime = (date) => {
-  const hours = castTimeFormat(date.getHours() % 12);
-  const minutes = castTimeFormat(date.getMinutes());
+  return moment(date).format(`hh:mm A`);
+};
 
-  const interval = date.getHours() > 11 ? `pm` : `am`;
-
-  return `${hours}:${minutes} ${interval}`;
+const formatDate = (date) => {
+  return moment(date).format(`DD MMMM`);
 };
 
 const getExpiredStatus = (date) => date instanceof Date && date < Date.now();
@@ -18,5 +20,6 @@ export {
   getRandom,
   castTimeFormat,
   formatTime,
+  formatDate,
   getExpiredStatus
 };
