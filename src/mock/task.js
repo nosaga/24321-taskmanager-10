@@ -1,4 +1,4 @@
-import {colors} from '../constants';
+import {COLORS} from '../constants';
 
 const descriptionItems = [
   `Изучить теорию`,
@@ -64,7 +64,7 @@ const generateTask = () => {
     dueDate,
     repeatingDays: dueDate ? defaultRepeatingDays : generateRepeatingDays(),
     tags: new Set(generateTags(tags)),
-    color: getRandomArrayItem(colors),
+    color: getRandomArrayItem(COLORS),
     isFavorite: Math.random() > 0.5,
     isArchive: Math.random() > 0.5,
   };

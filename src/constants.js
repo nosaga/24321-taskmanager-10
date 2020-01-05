@@ -1,5 +1,5 @@
-const colors = [`black`, `yellow`, `blue`, `green`, `pink`];
-const days = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
+const COLORS = [`black`, `yellow`, `blue`, `green`, `pink`];
+const DAYS = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
 const monthNames = [
   `January`,
   `February`,
@@ -14,4 +14,4 @@ const monthNames = [
   `November`,
   `December`,
 ];
-export {colors, days, monthNames};
+export {COLORS, DAYS, monthNames};
