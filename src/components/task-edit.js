@@ -1,6 +1,6 @@
 import flatpickr from 'flatpickr';
 import AbstractSmartComponent from './abstract-smart-component.js';
-import {COLORS, DAYS} from '../constants';
+import {COLORS, DAYS} from '../constants.js';
 import {formatTime, formatDate} from '../utils/common.js';
 
 const isRepeating = (repeatingDays) => {
@@ -85,7 +85,7 @@ const createTaskEditTemplate = (task, options = {}) => {
     (isRepeatingTask && !isRepeating(activeRepeatingDays));
 
   const date = (isDateShowing && dueDate) ? formatDate(dueDate) : ``;
-  const time = (isDateShowing && dueDate) ? formatTime(dueDate): ``;
+  const time = (isDateShowing && dueDate) ? formatTime(dueDate) : ``;
 
   const repeatClass = isRepeatingTask ? `card--repeat` : ``;
   const deadlineClass = isExpired ? `card--deadline` : ``;
@@ -118,57 +118,62 @@ const createTaskEditTemplate = (task, options = {}) => {
                   <button class="card__date-deadline-toggle" type="button">
                     date: <span class="card__date-status">${isDateShowing ? `yes` : `no`}</span>
                   </button>
-                  ${ isDateShowing ?
-      `<fieldset class="card__date-deadline">
-        <label class="card__input-deadline-wrap">
-          <input
-            class="card__date"
-            type="text"
-            placeholder=""
-            name="date"
-            value="${date} ${time}"
-          />
-        </label>
-      </fieldset>` : ``}
-                <button class="card__repeat-toggle" type="button">
-                  repeat:<span class="card__repeat-status">${isRepeatingTask ? `yes` : `no`}</span>
-                </button>
-      ${isRepeatingTask ?
-      `<fieldset class="card__repeat-days">
-        <div class="card__repeat-days-inner">
-          ${repeatingDaysMarkup}
-        </div>
-      </fieldset>` : ``
-    }
-    </div>
-      <div class="card__hashtag">
-        <div class="card__hashtag-list">
-          ${tagsMarkup}
-        </div>
-        <label>
-          <input
-            type="text"
-            class="card__hashtag-input"
-            name="hashtag-input"
-            placeholder="Type new hashtag here"
-          />
-        </label>
-      </div>
-    </div>
-      <div class="card__colors-inner">
-        <h3 class="card__colors-title">Color</h3>
-        <div class="card__colors-wrap">
-          ${colorsMarkup}
-        </div>
-      </div>
-    </div>
-    <div class="card__status-btns">
-        <button class="card__save" type="submit" ${isBlockSaveButton ? `disabled` : ``}>save</button>
-        <button class="card__delete" type="button">delete</button>
-      </div>
-    </div>
-      </form>
-    </article>`
+                  ${
+      isDateShowing ?
+        `<fieldset class="card__date-deadline">
+                        <label class="card__input-deadline-wrap">
+                          <input
+                            class="card__date"
+                            type="text"
+                            placeholder=""
+                            name="date"
+                            value="${date} ${time}"
+                          />
+                        </label>
+                      </fieldset>`
+        : ``
+      }
+                  <button class="card__repeat-toggle" type="button">
+                    repeat:<span class="card__repeat-status">${isRepeatingTask ? `yes` : `no`}</span>
+                  </button>
+                  ${
+      isRepeatingTask ?
+        `<fieldset class="card__repeat-days">
+                      <div class="card__repeat-days-inner">
+                        ${repeatingDaysMarkup}
+                      </div>
+                    </fieldset>`
+        : ``
+      }
+                </div>
+                <div class="card__hashtag">
+                  <div class="card__hashtag-list">
+                    ${tagsMarkup}
+                  </div>
+                  <label>
+                    <input
+                      type="text"
+                      class="card__hashtag-input"
+                      name="hashtag-input"
+                      placeholder="Type new hashtag here"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div class="card__colors-inner">
+                <h3 class="card__colors-title">Color</h3>
+                <div class="card__colors-wrap">
+                  ${colorsMarkup}
+                </div>
+              </div>
+            </div>
+            <div class="card__status-btns">
+              <button class="card__save" type="submit" ${isBlockSaveButton ? `disabled` : ``}>save</button>
+              <button class="card__delete" type="button">delete</button>
+            </div>
+          </div>
+        </form>
+      </article>`
   );
 };
 
@@ -181,6 +186,7 @@ export default class TaskEdit extends AbstractSmartComponent {
     this._isRepeatingTask = Object.values(task.repeatingDays).some(Boolean);
     this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
     this._flatpickr = null;
+    this._submitHandler = null;
 
     this._applyFlatpickr();
     this._subscribeOnEvents();
@@ -195,6 +201,7 @@ export default class TaskEdit extends AbstractSmartComponent {
   }
 
   recoveryListeners() {
+    this.setSubmitHandler(this._submitHandler);
     this._subscribeOnEvents();
   }
 
@@ -217,6 +224,8 @@ export default class TaskEdit extends AbstractSmartComponent {
   setSubmitHandler(handler) {
     this.getElement().querySelector(`form`)
       .addEventListener(`submit`, handler);
+
+    this._submitHandler = handler;
   }
 
   _applyFlatpickr() {
